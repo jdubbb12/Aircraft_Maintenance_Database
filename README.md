@@ -31,6 +31,8 @@ The Aircraft Maintenance Database is a PostgreSQL project designed to organize a
 
 ## Getting Started
 
+Use these commands in your terminal:
+
 ### 1. Clone the repository
 
 ```bash
@@ -38,8 +40,6 @@ git clone https://github.com/jdubbb12/Aircraft_Maintenance_Database.git
 ```
 
 ### 2. Create the database
-
-Connect to PostgreSQL using `psql`:
 
 ```bash
 psql -U postgres -d postgres -f 00_create_database.sql
@@ -49,13 +49,17 @@ The database only needs to be created once.
 
 ### 3. Create the tables
 
-Exit `psql` with `\q`, then run the table creation SQL file **if it is present in the repository**:
-
 ```bash
 psql -U postgres -d aircraft_maintenance_db -f 01_create_tables.sql
 ```
 
-### 4. Verify the database
+### 4. Create the roles
+
+```bash
+psql -U postgres -d aircraft_maintenance_db -f 02_create_roles.sql
+```
+
+### 5. Verify the database
 
 Connect to the project database:
 
