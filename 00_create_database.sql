@@ -1,0 +1,1 @@
+CREATE DATABASE aircraft_maintenance_db;
