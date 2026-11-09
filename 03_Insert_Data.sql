@@ -85,3 +85,25 @@ VALUES
 
 (5, CURRENT_TIMESTAMP, 'David Miller', 'Repair',
 'Replaced APU starter and completed historical maintenance documentation');
+
+
+<!-- Mass test data insert for 10,000 entries for repair tickets -->
+
+INSERT INTO repair_tickets
+(ticket_number, aircraft_id, reported_at, opened_by, priority, status, problem_description)
+SELECT
+    'TEST-RT-' || g,
+    2 + (g % 5),
+    CURRENT_TIMESTAMP - (g || ' hours')::interval,
+    'Test Technician',
+    CASE
+        WHEN g % 10 = 0 THEN 'high'
+        WHEN g % 3 = 0 THEN 'low'
+        ELSE 'normal'
+    END,
+    CASE
+        WHEN g % 5 = 0 THEN 'closed'
+        ELSE 'open'
+    END,
+    'Simulated aircraft maintenance issue ' || g
+FROM generate_series(1, 10000) g;
