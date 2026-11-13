@@ -76,6 +76,29 @@ WHERE table_schema = 'public'
 ORDER BY table_name;
 ```
 
+### 6. Insert Sample Data
+
+```bash
+psql -U postgres -d aircraft_maintenance_db -f 03_insert_data.sql
+```
+
+### 7. Create Indexes and Extended Statistics
+
+Indexes:
+```bash
+psql -U postgres -d aircraft_maintenance_db -f 04_create_indexes.sql
+```
+Extneded Statistics:
+```bash
+psql -U postgres -d aircraft_maintenance_db -f 06_create_extended_statistics.sql
+```
+
+### 8. Run Queries
+
+```bash
+psql -U postgres -d aircraft_maintenance_db -f 05_search_queries.sql
+```
+
 ## Database Roles and Permissions
 
 The project design includes the roles:
@@ -93,3 +116,7 @@ SQL scripts will be added and updated as the project develops. Files included ar
 - `00_create_database.sql` — creates the database.
 - `01_create_tables.sql` — creates the five tables and their relationships.
 - `02_create_roles.sql` — defines roles and privileges.
+- `03_insert_data.sql` — inserts 10,000 rows of sample data
+- `04_create_idnexes.sql` — create indexes on aircraft id and status
+- `05_search_queries.sql` — includes the queries used to test optimization
+- `06_create_extended_statistics.sql` — creates extended statistics for better performance using the composite index on aircraft id and status
