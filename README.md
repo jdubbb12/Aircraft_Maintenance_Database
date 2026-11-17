@@ -124,5 +124,6 @@ SQL scripts will be added and updated as the project develops. Files included ar
 - `02_create_roles.sql` — defines roles and privileges.
 - `03_insert_data.sql` — inserts 10,000 rows of sample data
 - `04_create_idnexes.sql` — create indexes on aircraft id and status
-- `05_search_queries.sql` — includes the queries used to test optimization
-- `06_create_extended_statistics.sql` — creates extended statistics for better performance using the composite index on aircraft id and status
+- `05_create_extended_statistics.sql` — creates extended statistics for better performance using the composite index on aircraft id and status
+- `06_search_queries.sql` — includes the queries used to test optimization
+- `07_testing_permissions.sql` — includes test transactions to ensure permissions are correct
