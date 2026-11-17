@@ -88,15 +88,21 @@ Indexes:
 ```bash
 psql -U postgres -d aircraft_maintenance_db -f 04_create_indexes.sql
 ```
-Extneded Statistics:
+Extended Statistics:
 ```bash
-psql -U postgres -d aircraft_maintenance_db -f 06_create_extended_statistics.sql
+psql -U postgres -d aircraft_maintenance_db -f 05_create_extended_statistics.sql
 ```
 
 ### 8. Run Queries
 
 ```bash
-psql -U postgres -d aircraft_maintenance_db -f 05_search_queries.sql
+psql -U postgres -d aircraft_maintenance_db -f 06_search_queries.sql
+```
+
+### 9. Test Role Permissions
+
+```bash
+psql -U postgres -d aircraft_maintenance_db -f 07_testing_permissions.sql
 ```
 
 ## Database Roles and Permissions

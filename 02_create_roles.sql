@@ -1,8 +1,18 @@
+-- Database Manager
 CREATE ROLE database_manager;
 ALTER ROLE database_manager WITH SUPERUSER;
 
-CREATE ROLE aircraft_technician_manager; 
-GRANT INSERT, UPDATE ON aircraft, repair_tickets, parts, repair_ticket_parts, repair_actions TO aircraft_technician_manager; 
+-- Aircraft Technician Manager
+CREATE ROLE aircraft_technician_manager;
 
+GRANT SELECT, INSERT, UPDATE ON aircraft, repair_tickets, parts, repair_ticket_parts, repair_actions TO aircraft_technician_manager;
+
+-- Aircraft Technician
 CREATE ROLE aircraft_technician;
-GRANT INSERT, UPDATE ON repair_tickets, repair_ticket_parts, repair_actions TO aircraft_technician;
+
+GRANT SELECT ON aircraft, parts TO aircraft_technician;
+
+GRANT SELECT, INSERT, UPDATE ON repair_tickets, repair_ticket_parts, repair_actions TO aircraft_technician;
+
+-- Sequence Permissions
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO aircraft_technician, aircraft_technician_manager;
