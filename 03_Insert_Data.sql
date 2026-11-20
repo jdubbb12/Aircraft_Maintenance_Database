@@ -1,4 +1,4 @@
-<--! Test aircraft data -->
+-- Test aircraft data --
 INSERT INTO aircraft (tail_number, serial_number, model, manufacturer, status)
 VALUES
 ('TEST-17001', 'TEST-C17-001', 'C-17 Globemaster III', 'Boeing', 'active'),
@@ -8,7 +8,7 @@ VALUES
 ('TEST-10001', 'TEST-KC10-001', 'KC-10 Extender', 'McDonnell Douglas', 'retired');
 
 
-<--! Test repair data -->
+-- Test repair data --
 INSERT INTO repair_tickets
 (ticket_number, aircraft_id, reported_at, opened_by, priority, status, problem_description)
 VALUES
@@ -28,7 +28,7 @@ VALUES
 'Historical maintenance record for auxiliary power unit malfunction');
 
 
-<--! Test aircraft part data -->
+-- Test aircraft part data --
 INSERT INTO parts (part_number, part_name, description)
 VALUES
 ('PART-001', 'Engine Oil Filter',
@@ -47,7 +47,7 @@ VALUES
 'Starter component for the auxiliary power unit');
 
 
-<--! Test repair ticket part data -->
+-- Test repair ticket part data --
 INSERT INTO repair_ticket_parts
 (ticket_id, part_id, quantity, unit_cost_at_use, installed_at, notes)
 VALUES
@@ -67,7 +67,7 @@ VALUES
 'Historical APU starter replacement');
 
 
-<--! Test maintenance data -->
+-- Test maintenance data --
 INSERT INTO repair_actions
 (ticket_id, action_at, performed_by, action_type, description)
 VALUES
@@ -87,7 +87,7 @@ VALUES
 'Replaced APU starter and completed historical maintenance documentation');
 
 
-<!-- Mass test data insert for 10,000 entries for repair tickets -->
+-- Mass test data insert for 10,000 entries for repair tickets --
 
 INSERT INTO repair_tickets
 (ticket_number, aircraft_id, reported_at, opened_by, priority, status, problem_description)
