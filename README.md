@@ -9,7 +9,7 @@
 
 ## Project Overview
 
-The Aircraft Maintenance Database is a PostgreSQL project designed to organize and track aircraft maintenance records. It stores aircraft information, repair tickets, maintenance actions, and the parts used during repairs. The project also provides a way to demonstrate database administration concepts such as relationships, constraints, user roles, and permissions.
+The Aircraft Maintenance Database is a PostgreSQL project designed to organize and track aircraft maintenance records. It stores aircraft information, repair tickets, maintenance actions, and the parts used during repairs. The project also provides a way to demonstrate database administration concepts such as relationships, constraints, user roles, permissions, performance optimization, and backup & recovery.
 
 ## Project Objectives
 
@@ -17,7 +17,9 @@ The Aircraft Maintenance Database is a PostgreSQL project designed to organize a
 - Track reported maintenance problems and the status of repair tickets.
 - Record the maintenance actions performed for each ticket.
 - Track the parts and quantities used in repairs.
-- Apply PostgreSQL database administration techniques as the project develops.
+- Improve query performance using indexes and extended statistics.
+- Restrict database operations based on user roles.
+- Create and restore database backups.
 
 ## Database Tables
 
@@ -114,6 +116,102 @@ The project design includes the roles:
 | `database_manager` | Database administration and management. |
 | `aircraft_technician_manager` | Manage aircraft, parts, and maintenance records. |
 | `aircraft_technician` | Record and update repair tickets and maintenance actions. |
+| `backup_user` | Creates logical database backups. |
+| `replication_user` | Creates physical database backups. |
+
+## Performance Optimization
+
+The project uses EXPLAIN ANALYZE to compare query performance before and after optimization.
+
+Indexes were created on aircraft ID, repair ticket status, and a combination of aircraft ID and status.
+
+Testing showed improvements in individual query execution times after indexing. Extended statistics were also used to improve PostgreSQL's row estimates.
+
+## Backup and Recovery
+
+The project includes logical backups, physical backups, WAL archiving, and restoration testing.
+
+The backup scripts are written for Windows PowerShell.
+
+### 1. Logical Backup
+
+Run this in the PowerShell:
+
+```powershell
+.\08_logical_backup.ps1
+```
+
+This uses `pg_dump` to back up the aircraft maintenance database and `pg_dumpall` to back up PostgreSQL roles.
+
+### 2. Physical Backup
+
+Run:
+
+```powershell
+.\09_physical_backup.ps1
+```
+
+This uses `pg_basebackup` to create a physical backup.
+
+### 3. Restore Backup
+
+Run:
+
+```powershell
+.\10_restore_backup.ps1
+```
+
+This creates a separate database called `aircraft_maintenance_db_restore` and restores the logical backup using `pg_restore`.
+
+The backup filename must match the file created by the logical backup script. The restore database must not already exist.
+
+After restoring, the script checks the number of repair tickets to verify that the data was restored.
+
+### 4. WAL Archiving
+
+Open PowerShell as Administrator and run:
+
+```powershell
+.\11_setup_wal_archiving.ps1
+```
+
+This creates a WAL archive folder, updates PostgreSQL's configuration, and restarts PostgreSQL.
+
+The PostgreSQL service must have permission to write to the archive folder. WAL archiving only needs to be configured once.
+
+### 5. Verify WAL Archiving
+
+Connect to PostgreSQL:
+
+```powershell
+psql -U postgres -d aircraft_maintenance_db
+```
+
+Run:
+
+```sql
+SHOW wal_level;
+SHOW archive_mode;
+SHOW archive_command;
+```
+
+To check if WAL files are being archived successfully, run:
+
+```sql
+SELECT archived_count, failed_count, last_archived_wal
+FROM pg_stat_archiver;
+```
+### Backup Files
+
+The backup files are stored locally and should not get uploaded to GitHub.
+
+The `.gitignore` file includes:
+
+```gitignore
+*.dump
+globals_*.sql
+physical_backup/
+```
 
 ## Project Files
 
@@ -127,3 +225,7 @@ SQL scripts will be added and updated as the project develops. Files included ar
 - `05_create_extended_statistics.sql` — creates extended statistics for better performance using the composite index on aircraft id and status
 - `06_search_queries.sql` — includes the queries used to test optimization
 - `07_testing_permissions.sql` — includes test transactions to ensure permissions are correct
+- `08_logical_backup.ps1` — creates logical backup
+- `09_physical_backup.ps1` — creates physical backup
+- `10_restore_backup.ps1` — creates the stored backup database
+- `11_setup_wal_achiving.ps1` — creates a WAL archive folder, updates PostgreSQL's configuration, and restarts PostgreSQL
