@@ -1,0 +1,5 @@
+# Ignore dump files so backups & role backups don't get committed to the repository
+
+*.dump
+globals_*.sql
+physical_backup/

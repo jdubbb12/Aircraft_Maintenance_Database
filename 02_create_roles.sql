@@ -16,3 +16,17 @@ GRANT SELECT, INSERT, UPDATE ON repair_tickets, repair_ticket_parts, repair_acti
 
 -- Sequence Permissions
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO aircraft_technician, aircraft_technician_manager;
+
+-- Backup Role
+CREATE ROLE backup_user LOGIN;
+
+GRANT pg_read_all_data TO backup_user;
+
+GRANT CONNECT ON DATABASE aircraft_maintenance_db TO backup_user;
+
+\password backup_user
+
+-- Replication Role
+CREATE ROLE replication_user LOGIN REPLICATION;
+
+\password replication_user

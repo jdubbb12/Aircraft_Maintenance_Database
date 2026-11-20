@@ -121,7 +121,7 @@ SQL scripts will be added and updated as the project develops. Files included ar
 
 - `00_create_database.sql` — creates the database.
 - `01_create_tables.sql` — creates the five tables and their relationships.
-- `02_create_roles.sql` — defines roles and privileges.
+- `02_create_roles.sql` — defines roles and privileges & creates passwords for backup_user and replication_user.
 - `03_insert_data.sql` — inserts 10,000 rows of sample data
 - `04_create_indexes.sql` — create indexes on aircraft id and status
 - `05_create_extended_statistics.sql` — creates extended statistics for better performance using the composite index on aircraft id and status
