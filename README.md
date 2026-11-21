@@ -201,6 +201,16 @@ To check if WAL files are being archived successfully, run:
 SELECT archived_count, failed_count, last_archived_wal
 FROM pg_stat_archiver;
 ```
+
+### 6. Test backup database for tickets
+
+Using the PowerShell again:
+
+```powershell
+psql -U postgres -d aircraft_maintenance_db_restore -f 12_test_backup.sql
+```
+
+
 ### Backup Files
 
 The backup files are stored locally and should not get uploaded to GitHub.
@@ -229,3 +239,4 @@ SQL scripts will be added and updated as the project develops. Files included ar
 - `09_physical_backup.ps1` — creates physical backup
 - `10_restore_backup.ps1` — creates the stored backup database
 - `11_setup_wal_achiving.ps1` — creates a WAL archive folder, updates PostgreSQL's configuration, and restarts PostgreSQL
+- `12_test_backup.ps1` — tests to make sure the backup database is populated with data
